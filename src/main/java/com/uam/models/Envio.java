@@ -16,9 +16,9 @@ public abstract class Envio {
 
     // Método Concreto (DRY): Reutilizamos la lógica de impresión para todos
     public void generarEtiquetaSeguridad() {
-        System.out.println("=====================================");
+
         System.out.println("[ETIQUETA] GUÍA #: " + numeroGuia);
         System.out.println("[ETIQUETA] PESO  : " + pesoKg + " Kg");
-        System.out.println("=====================================");
+
     }
 }
