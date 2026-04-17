@@ -55,54 +55,6 @@ generarReporteGeneral(): Itera sobre el inventario usando polimorfismo para most
 calcularSeguros(double): Aplica un filtro de tipos (instanceof) para procesar solo aquellos envíos que califican como asegurables.
 
 
-<pre><code>```mermaid
-classDiagram
-class IRastreable {
-&lt;&lt;interface&gt;&gt;
-+rastrearUbicacion() void
-+obtenerEstado() String
-}
-class IAsegurable {
-&lt;&lt;interface&gt;&gt;
-+calcularCostoSeguro(double valorCarga) double
-}
-class Envio {
-&lt;&lt;abstract&gt;&gt;
-#String numeroGuia
-#Cliente cliente
-#String estadoActual
-+procesarDespacho()* void
-+calcularCostoDespacho()* double
-}
-class EnvioTerrestre {
--double distanciaKm
-+procesarDespacho() void
-+calcularCostoDespacho() double
-}
-class EnvioAereo {
--double pesoKg
-+procesarDespacho() void
-+calcularCostoDespacho() double
-+calcularCostoSeguro(double valorCarga) double
-}
-class EnvioMaritimo {
--int numeroContenedores
-+procesarDespacho() void
-+calcularCostoDespacho() double
-+calcularCostoSeguro(double valorCarga) double
-}
-class Cliente {
--String nombre
--String correo
-+getNombre() String
-}
-class GestorEnvios {
--List~Envio~ inventario
-+agregarEnvio(Envio envio) void
-+generarReporteGeneral() void
-+calcularSeguros(double valorCarga) void
-}
-
 IRastreable &amp;lt;|.. Envio : Implementa
 Envio &amp;lt;|-- EnvioTerrestre : Hereda
 Envio &amp;lt;|-- EnvioAereo : Hereda
