@@ -1,22 +1,28 @@
 package com.uam;
 
+import com.uam.models.Cliente;
 import com.uam.models.EnvioAereo;
+import com.uam.models.EnvioMaritimo;
 import com.uam.models.EnvioTerrestre;
-import com.uam.service.CentroDistribucion;
+import com.uam.service.GestorEnvios;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        Cliente cli1 = new Cliente("Erving Miranda", "erving@email.com");
+        Cliente cli2 = new Cliente("Carlos Dev", "carlos@email.com");
 
-        // 1. Instanciamos nuestro servicio (El Centro de Distribución)
-        CentroDistribucion centro = new CentroDistribucion();
+        GestorEnvios gestor = new GestorEnvios();
 
-        // 2. Creamos un par de envíos usando polimorfismo
-        // Fíjate que instanciamos clases hijas
-        EnvioTerrestre paquete1 = new EnvioTerrestre(1001, 45.5, "MT-5050", "Carlos Perez");
-        EnvioAereo paquete2 = new EnvioAereo(2005, 12.0, "Copa Airlines", 405);
-        centro.despacharPaquete(paquete1);
-        centro.despacharPaquete(paquete2);
+        EnvioTerrestre paqueteLocal = new EnvioTerrestre("TER-001", cli1, 50.0);
+        EnvioAereo paqueteExpress = new EnvioAereo("AER-002", cli2, 10.0);
+        EnvioMaritimo cargamento = new EnvioMaritimo("MAR-003", cli1, 2);
+
+        gestor.agregarEnvio(paqueteLocal);
+        gestor.agregarEnvio(paqueteExpress);
+        gestor.agregarEnvio(cargamento);
+
+        gestor.generarReporteGeneral();
+
+        gestor.calcularSeguros(1000.0);
     }
 }

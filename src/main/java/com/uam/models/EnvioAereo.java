@@ -1,20 +1,34 @@
 package com.uam.models;
 
-public class EnvioAereo extends Envio {
-    private String aerolinea;
-    private int numeroVuelo;
+import com.uam.interfaces.IAsegurable;
 
-    public EnvioAereo(int numeroGuia, double pesoKg, String aerolinea, int numeroVuelo) {
-        super(numeroGuia, pesoKg);
-        this.aerolinea = aerolinea;
-        this.numeroVuelo = numeroVuelo;
+public class EnvioAereo extends Envio implements IAsegurable {
+    private double pesoKg;
+
+    public EnvioAereo(String numeroGuia, Cliente cliente, double pesoKg) {
+        super(numeroGuia, cliente);
+        this.pesoKg = pesoKg;
     }
 
     @Override
     public void procesarDespacho() {
-        generarEtiquetaSeguridad();
-        System.out.println("Iniciando ruta aérea...");
-        System.out.println("Aerolínea: " + aerolinea + " | Vuelo #: " + numeroVuelo);
-        System.out.println("Estado: En aduana aeroportuaria.\n");
+        System.out.println("Procesando despacho aereo...");
+        this.estadoActual = "En proceso de carga en aeropuerto";
+    }
+
+    @Override
+    public double calcularCostoDespacho() {
+        return pesoKg * 50.0;
+    }
+
+    @Override
+    public void rastrearUbicacion() {
+        System.out.println("Rastreando vuelo por radar...");
+        this.estadoActual = "En vuelo internacional";
+    }
+
+    @Override
+    public double calcularCostoSeguro(double valorCarga) {
+        return valorCarga * 0.10;
     }
 }

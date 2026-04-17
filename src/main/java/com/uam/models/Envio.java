@@ -1,24 +1,28 @@
 package com.uam.models;
 
-public abstract class Envio {
-    // Atributos protected para que las clases hijas tengan acceso directo
-    protected int numeroGuia;
-    protected double pesoKg;
+import com.uam.interfaces.IRastreable;
 
-    // Constructor
-    public Envio(int numeroGuia, double pesoKg) {
+public abstract class Envio implements IRastreable {
+    protected String numeroGuia;
+    protected Cliente cliente;
+    protected String estadoActual;
+
+    public Envio(String numeroGuia, Cliente cliente) {
         this.numeroGuia = numeroGuia;
-        this.pesoKg = pesoKg;
+        this.cliente = cliente;
+        this.estadoActual = "En Bodega Central";
     }
 
-    // Método Abstracto: Obliga a cada transporte a definir su propia logística
+    public String getNumeroGuia() { return numeroGuia; }
+
+    public Cliente getCliente() { return cliente; }
+
     public abstract void procesarDespacho();
 
-    // Método Concreto (DRY): Reutilizamos la lógica de impresión para todos
-    public void generarEtiquetaSeguridad() {
+    public abstract double calcularCostoDespacho();
 
-        System.out.println("[ETIQUETA] GUÍA #: " + numeroGuia);
-        System.out.println("[ETIQUETA] PESO  : " + pesoKg + " Kg");
-
+    @Override
+    public String obtenerEstado() {
+        return "Guia: " + numeroGuia + " | Cliente: " + cliente.getNombre() + " | Estado: " + estadoActual;
     }
 }
