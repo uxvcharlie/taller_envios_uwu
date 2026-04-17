@@ -61,3 +61,42 @@ calcularSeguros(double): Aplica un filtro de tipos (instanceof) para procesar so
 
 DIAGRAMA DE CLASES
 <img width="1549" height="777" alt="Untitled Diagram drawio (1)" src="https://github.com/user-attachments/assets/d52232f9-0e44-428d-bc1c-9d950d9e5324" />
+
+
+
+Arbol del codigo:
+│
+├── .gitignore
+├── pom.xml                            
+│
+├── .idea/                           
+│
+├── src/                              
+│   │
+│   ├── main/
+│   │   │
+│   │   ├── java/com/uam/
+│   │   │   │
+│   │   │   ├── Main.java              
+│   │   │   │
+│   │   │   ├── interfaces/            
+│   │   │   │   ├── IAsegurable.java
+│   │   │   │   └── IRastreable.java
+│   │   │   │
+│   │   │   ├── models/                
+│   │   │   │   ├── Cliente.java
+│   │   │   │   ├── Envio.java
+│   │   │   │   ├── EnvioAereo.java
+│   │   │   │   ├── EnvioMaritimo.java
+│   │   │   │   └── EnvioTerrestre.java
+│   │   │   │
+│   │   │   └── service/         
+│   │   │       └── GestorEnvios.java
+│   │   │
+│   │   └── resources/                
+│   │
+│   └── test/                         
+│
+└── target/
+│   └── test/              
+└── target/             
