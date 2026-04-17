@@ -33,61 +33,6 @@ IRastreable: Define los métodos rastrearUbicacion() y obtenerEstado().
 IAsegurable: Define calcularCostoSeguro(double valorCarga) para el cálculo de pólizas.
 
 
-classDiagram
-    class IRastreable {
-        <<interface>>
-        +rastrearUbicacion() void
-        +obtenerEstado() String
-    }
-    class IAsegurable {
-        <<interface>>
-        +calcularCostoSeguro(double valorCarga) double
-    }
-    class Envio {
-        <<abstract>>
-        #String numeroGuia
-        #Cliente cliente
-        #String estadoActual
-        +procesarDespacho()* void
-        +calcularCostoDespacho()* double
-    }
-    class EnvioTerrestre {
-        -double distanciaKm
-        +procesarDespacho() void
-        +calcularCostoDespacho() double
-    }
-    class EnvioAereo {
-        -double pesoKg
-        +procesarDespacho() void
-        +calcularCostoDespacho() double
-        +calcularCostoSeguro(double valorCarga) double
-    }
-    class EnvioMaritimo {
-        -int numeroContenedores
-        +procesarDespacho() void
-        +calcularCostoDespacho() double
-        +calcularCostoSeguro(double valorCarga) double
-    }
-    class Cliente {
-        -String nombre
-        -String correo
-        +getNombre() String
-    }
-    class GestorEnvios {
-        -List~Envio~ inventario
-        +agregarEnvio(Envio envio) void
-        +generarReporteGeneral() void
-        +calcularSeguros(double valorCarga) void
-    }
-
-    IRastreable <|.. Envio : Implementa
-    Envio <|-- EnvioTerrestre : Hereda
-    Envio <|-- EnvioAereo : Hereda
-    Envio <|-- EnvioMaritimo : Hereda
-    IAsegurable <|.. EnvioAereo : Implementa
-    IAsegurable <|.. EnvioMaritimo : Implementa
-    Envio "1" --> "1" Cliente : Posee
-    GestorEnvios "1" o-- "0..*" Envio : Agrega
 
 Entidades (Models)
 Envio (Abstracta): Contiene los atributos protegidos numeroGuia, cliente y estadoActual. Define los métodos abstractos procesarDespacho() y calcularCostoDespacho().
@@ -108,3 +53,61 @@ agregarEnvio(Envio): Registra nuevos paquetes en el inventario.
 generarReporteGeneral(): Itera sobre el inventario usando polimorfismo para mostrar estados y costos.
 
 calcularSeguros(double): Aplica un filtro de tipos (instanceof) para procesar solo aquellos envíos que califican como asegurables.
+
+
+<pre><code>```mermaid
+classDiagram
+class IRastreable {
+&lt;&lt;interface&gt;&gt;
++rastrearUbicacion() void
++obtenerEstado() String
+}
+class IAsegurable {
+&lt;&lt;interface&gt;&gt;
++calcularCostoSeguro(double valorCarga) double
+}
+class Envio {
+&lt;&lt;abstract&gt;&gt;
+#String numeroGuia
+#Cliente cliente
+#String estadoActual
++procesarDespacho()* void
++calcularCostoDespacho()* double
+}
+class EnvioTerrestre {
+-double distanciaKm
++procesarDespacho() void
++calcularCostoDespacho() double
+}
+class EnvioAereo {
+-double pesoKg
++procesarDespacho() void
++calcularCostoDespacho() double
++calcularCostoSeguro(double valorCarga) double
+}
+class EnvioMaritimo {
+-int numeroContenedores
++procesarDespacho() void
++calcularCostoDespacho() double
++calcularCostoSeguro(double valorCarga) double
+}
+class Cliente {
+-String nombre
+-String correo
++getNombre() String
+}
+class GestorEnvios {
+-List~Envio~ inventario
++agregarEnvio(Envio envio) void
++generarReporteGeneral() void
++calcularSeguros(double valorCarga) void
+}
+
+IRastreable &amp;lt;|.. Envio : Implementa
+Envio &amp;lt;|-- EnvioTerrestre : Hereda
+Envio &amp;lt;|-- EnvioAereo : Hereda
+Envio &amp;lt;|-- EnvioMaritimo : Hereda
+IAsegurable &amp;lt;|.. EnvioAereo : Implementa
+IAsegurable &amp;lt;|.. EnvioMaritimo : Implementa
+Envio &quot;1&quot; --&amp;gt; &quot;1&quot; Cliente : Posee
+GestorEnvios &quot;1&quot; o-- &quot;0..*&quot; Envio : Agrega
